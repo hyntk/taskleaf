@@ -25,6 +25,7 @@
 |status|string |
 
 status
+
 | カラム名 | データ型 |
 |:---|:---:|
 |status|string |
