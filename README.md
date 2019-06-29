@@ -23,3 +23,8 @@ status
 | カラム名     | データ型    |
 |:-----------|------------:|
 | status        | string    |
+
+| 左揃え | 中央揃え | 右揃え |
+|:---|:---:|---:|
+|test1|test2 |test3 |
+|content4 |content5 |content6 |
