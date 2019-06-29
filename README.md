@@ -2,24 +2,24 @@
 
 ## テーブルとスキーマ
 
-user
+- user
 | カラム名  | データ型 |
 |:---|:---|
 |name|string |
 |email |string |
 |password_digest |string |
 
-task
+- task
 | カラム名  | データ型 |
 |:---|:---|
 |content|text |
 
-labels
+- labels
 | カラム名  | データ型 |
 |:---|:---|
 |label|string |
 
-status
+- status
 | カラム名  | データ型 |
 |:---|:---|
 |status|string |
