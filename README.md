@@ -2,7 +2,7 @@
 
 ## テーブルとスキーマ
 ---
-- user
+- users
 
 | カラム名  | データ型 |
 |:---|:---|
@@ -10,7 +10,7 @@
 |email |string |
 |password_digest |string |
 
-- task
+- tasks
 
 | カラム名  | データ型 |
 |:---|:---|
@@ -22,7 +22,7 @@
 |:---|:---|
 |label|string |
 
-- status
+- statuses
 
 | カラム名  | データ型 |
 |:---|:---|
