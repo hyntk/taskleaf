@@ -28,16 +28,16 @@
 |:---|:---|
 |status|string |
 
-- tasks_statuses
+- task_statuses
 
 | カラム名  | データ型 |
 |:---|:---|
-|task_cd|integer |
-|status_cd|integer |
+|task_id|integer |
+|status_id|integer |
 
-- tasks_labels
+- task_labels
 
 | カラム名  | データ型 |
 |:---|:---|
-|task_cd|integer |
-|label_cd|integer |
+|task_id|integer |
+|label_id|integer |
