@@ -15,6 +15,8 @@
 | カラム名  | データ型 |
 |:---|:---|
 |content|text |
+|status|string |
+|priority|string |
 
 - labels
 
@@ -27,13 +29,6 @@
 | カラム名  | データ型 |
 |:---|:---|
 |name|string |
-
-- task_statuses
-
-| カラム名  | データ型 |
-|:---|:---|
-|task_id|integer |
-|status_id|integer |
 
 - task_labels
 
