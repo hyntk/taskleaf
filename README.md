@@ -20,13 +20,13 @@
 
 | カラム名  | データ型 |
 |:---|:---|
-|label|string |
+|name|string |
 
 - statuses
 
 | カラム名  | データ型 |
 |:---|:---|
-|status|string |
+|name|string |
 
 - task_statuses
 
