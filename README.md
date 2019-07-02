@@ -32,12 +32,12 @@
 
 | カラム名  | データ型 |
 |:---|:---|
-|content|text |
-|status|string |
+|task_cd|integer |
+|status_cd|integer |
 
 - tasks_labels
 
 | カラム名  | データ型 |
 |:---|:---|
-|content|text |
-|label|string |
+|task_cd|integer |
+|label_cd|integer |
