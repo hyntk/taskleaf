@@ -27,3 +27,17 @@
 | カラム名  | データ型 |
 |:---|:---|
 |status|string |
+
+- tasks_statuses
+
+| カラム名  | データ型 |
+|:---|:---|
+|content|text |
+|status|string |
+
+- tasks_labels
+
+| カラム名  | データ型 |
+|:---|:---|
+|content|text |
+|label|string |
