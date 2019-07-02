@@ -24,12 +24,6 @@
 |:---|:---|
 |name|string |
 
-- statuses
-
-| カラム名  | データ型 |
-|:---|:---|
-|name|string |
-
 - task_labels
 
 | カラム名  | データ型 |
