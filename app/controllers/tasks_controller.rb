@@ -12,6 +12,10 @@ class TasksController < ApplicationController
     redirect_to new_task_path
   end
 
+  def show
+    @task = Task.find(params[:id])
+  end
+
   private
 
   def task_params
