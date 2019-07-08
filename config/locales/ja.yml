@@ -205,3 +205,15 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  view:
+    index: "一覧"
+    Task list: タスク一覧
+    content: "内容"
+    Status: "状態"
+    priority: "優先順位"
+    edit: "編集"  
+    new: "新規"
+    show: "詳細"
+    delete: "削除"
+    Task details: タスク詳細
+    are exist!: 件のエラーがあります
