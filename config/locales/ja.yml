@@ -209,7 +209,7 @@ ja:
     index: "一覧"
     Task list: タスク一覧
     content: "内容"
-    Status: "状態"
+    status: "状態"
     priority: "優先順位"
     edit: "編集"  
     new: "新規"
