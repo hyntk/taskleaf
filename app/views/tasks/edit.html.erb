@@ -3,7 +3,8 @@
 <%# notice表示の実装 %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @task.errors.count %>are exist!</h2>
+      <%= @task.errors.count %>
+      <%=t('view.errors are exist!')%>
       <ul>
 
       <% @task.errors.full_messages.each do |msg| %>
