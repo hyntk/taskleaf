@@ -216,4 +216,7 @@ ja:
     show: "詳細"
     delete: "削除"
     Task details: タスク詳細
-    are exist!: 件のエラーがあります
+    errors are exist!: 件のエラーがあります
+    task created: タスクを作成しました！
+    task edited: タスクを編集しました！
+    task deleted: タスクを削除しました！
