@@ -48,6 +48,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'launchy'
+  gem 'hirb'
+  gem 'hirb-unicode'
 end
 
 group :development do
