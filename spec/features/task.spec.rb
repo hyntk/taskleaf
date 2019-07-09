@@ -1,54 +1,73 @@
+# 「FactoryBotを使用します」という記述
+FactoryBot.define do
+
+  factory :task do
+    content { 'test_task_01' }
+    status { '未着手' }
+    priority { '低' }
+  end
+
+  factory :second_task,class: Task do
+    content { 'test_task_02' }
+    status { '未着手' }
+    priority { '高い' }
+  end
+end
+
 # このrequireで、Capybaraなどの、Feature Specに必要な機能を使用可能な状態にしています
 require 'rails_helper'
 
 # このRSpec.featureの右側に、「タスク管理機能」のように、テスト項目の名称を書きます（do ~ endでグループ化されています）
 RSpec.feature "タスク管理機能", type: :feature do
-  # scenario（itのalias）の中に、確認したい各項目のテストの処理を書きます。
-  scenario "タスク一覧のテスト" do
+  
+  background do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-    Task.create!(content: 'test_task_01', status: '未着手',priority: '低')
-    Task.create!(content: 'test_task_02', status: '未着手',priority: '高')
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
+  end
 
-    # tasks_pathにvisitする（タスク一覧ページに遷移する）
+  scenario "タスク一覧のテスト" do
     visit tasks_path
+    save_and_open_page
 
-    # visitした（到着した）expect(page)に（タスク一覧ページに）「testtesttest」「samplesample」という文字列が
-    # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
     expect(page).to have_content 'test_task_01'
     expect(page).to have_content 'test_task_02'
   end
 
   scenario "タスク作成のテスト" do
-    # new_task_pathにvisitする（タスク登録ページに遷移する）
-    # 1.ここにnew_task_pathにvisitする処理を書く
     visit new_task_path
-    # 「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄に
-    # タスクのタイトルと内容をそれぞれfill_in（入力）する
-    # 2.ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-    # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
+
     fill_in 'task_content', with: 'test_task_03'
     fill_in 'task_status', with: '未着手'
     fill_in 'task_priority', with: '高'
-    # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
-    # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
-    click_on 'Create Task'
-    # clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
-    # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
-    # 5.タスク詳細ページに、テストコードで作成したはずのデータ（記述）がhave_contentされているか（含まれているか）を確認（期待）するコードを書く
+
+    click_on '登録する'
+
     expect(page).to have_content 'test_task_03'
     expect(page).to have_content '未着手'
     expect(page).to have_content '高'
-
   end
 
   scenario "タスク詳細のテスト" do
-    Task.create!(content: 'test_task_04', status: '未着手',priority: '低')
     visit tasks_path
-    click_on '詳細'
-    expect(page).to have_content 'タスク詳細画面'
-    expect(page).to have_content 'test_task_04'
+    click_on '詳細',match: :first
+    expect(page).to have_content 'タスク詳細'
+    expect(page).to have_content 'test_task_02'
     expect(page).to have_content '未着手'
-    expect(page).to have_content '低'
-    expect(page).to have_link 'タスク一覧画面にもどる'
+    expect(page).to have_content '高'
+    expect(page).to have_link '一覧'
+  end
+
+  scenario "タスクが作成日時の降順に並んでいるかのテスト" do
+
+    visit tasks_path
+
+    tds = page.all('td')
+    expect(tds[0]).to have_content 'test_task_02'
+    expect(tds[1]).to have_content '未着手'
+    expect(tds[2]).to have_content '高'
+    expect(tds[6]).to have_content 'test_task_01'
+    expect(tds[7]).to have_content '未着手'
+    expect(tds[8]).to have_content '低'
   end
 end
