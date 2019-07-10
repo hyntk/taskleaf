@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task=Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: t('task created')
+      redirect_to tasks_path, notice: t('view.task created')
     else
       render 'new'
     end
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to tasks_path, notice: t('task edited')
+      redirect_to tasks_path, notice: t('view.task edited')
     else
       render 'edit'
     end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_path, notice:t('task deleted')
+    redirect_to tasks_path, notice:t('view.task deleted')
   end
 
   private
