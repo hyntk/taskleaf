@@ -28,7 +28,6 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスク一覧のテスト" do
     visit tasks_path
-    save_and_open_page
 
     expect(page).to have_content 'test_task_01'
     expect(page).to have_content 'test_task_02'
@@ -61,13 +60,31 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
 
     visit tasks_path
-
     tds = page.all('td')
     expect(tds[0]).to have_content 'test_task_02'
     expect(tds[1]).to have_content '未着手'
     expect(tds[2]).to have_content '高'
-    expect(tds[6]).to have_content 'test_task_01'
-    expect(tds[7]).to have_content '未着手'
-    expect(tds[8]).to have_content '低'
+    expect(tds[7]).to have_content 'test_task_01'
+    expect(tds[8]).to have_content '未着手'
+    expect(tds[9]).to have_content '低'
+  end
+
+  scenario "期限付タスクが期限の降順に並んでいるかのテスト" do
+    visit new_task_path
+
+    fill_in 'task_content', with: 'test_task_04'
+    fill_in 'task_status', with: '未着手'
+    fill_in 'task_priority', with: '高'
+    select('2019', from: 'task_deadline_1i')
+    select('12', from: 'task_deadline_2i')
+    select('31', from: 'task_deadline_3i')
+
+    click_on '登録する'
+
+    click_on '終了期限でソートする'
+    save_and_open_page
+
+    tds = page.all('td')
+    expect(tds[14]).to have_content 'test_task_04'
   end
 end

@@ -211,6 +211,7 @@ ja:
     content: "内容"
     status: "状態"
     priority: "優先順位"
+    deadline: "期限"
     edit: "編集"  
     new: "新規"
     show: "詳細"

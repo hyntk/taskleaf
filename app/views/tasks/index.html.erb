@@ -1,11 +1,14 @@
 <h1><%= t('view.Task list') %></h1>
 <p><%= notice %></p>
 
+<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+
 <table>
   <tr>
     <th><%= t('view.content') %></th>
     <th><%= t('view.status') %></th>
     <th><%= t('view.priority') %></th>
+    <th><%= t('view.deadline') %></th>
 
   </tr>
 
@@ -14,6 +17,7 @@
     <td><%= task.content %></td>
     <td><%= task.status %></td>
     <td><%= task.priority %></td>
+    <td><%= task.deadline %></td>
     <td><%= link_to t('view.show'), task_path(task.id) %></td>
     <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
     <td><%= link_to t('view.delete'), task_path(task.id), method: :delete %></td>

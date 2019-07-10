@@ -1,6 +1,12 @@
 class TasksController < ApplicationController
+
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    if params[:sort_expired] == "true"
+      @tasks = Task.all.order(deadline: "DESC")
+    else  
+    # elsif params[:sort_expired] == "false"
+      @tasks = Task.all.order(created_at: "DESC")
+    end
   end
 
   def new
@@ -10,7 +16,7 @@ class TasksController < ApplicationController
   def create
     @task=Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: t('task created')
+      redirect_to tasks_path, notice: t('view.task created')
     else
       render 'new'
     end
@@ -27,7 +33,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to tasks_path, notice: t('task edited')
+      redirect_to tasks_path, notice: t('view.task edited')
     else
       render 'edit'
     end
@@ -36,12 +42,12 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_path, notice:t('task deleted')
+    redirect_to tasks_path, notice:t('view.task deleted')
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:content,:status,:priority)
+    params.require(:task).permit(:content,:status,:priority,:deadline)
   end
 end
