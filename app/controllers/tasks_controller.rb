@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :check_params, only: [:create]
 
   def index
     if params[:sort_expired] == "true"
