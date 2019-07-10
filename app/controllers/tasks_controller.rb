@@ -1,6 +1,13 @@
 class TasksController < ApplicationController
+  before_action :check_params, only: [:create]
+
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    if params[:sort_expired] == "true"
+      @tasks = Task.all.order(deadline: "DESC")
+    else  
+    # elsif params[:sort_expired] == "false"
+      @tasks = Task.all.order(created_at: "DESC")
+    end
   end
 
   def new
