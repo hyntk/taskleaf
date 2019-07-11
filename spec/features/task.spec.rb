@@ -5,12 +5,14 @@ FactoryBot.define do
     content { 'test_task_01' }
     status { '未着手' }
     priority { '低' }
+    deadline { "2019-07-07" }
   end
 
   factory :second_task,class: Task do
     content { 'test_task_02' }
     status { '未着手' }
-    priority { '高い' }
+    priority { '高' }
+    deadline { "2019-07-10" }
   end
 end
 
@@ -85,6 +87,8 @@ RSpec.feature "タスク管理機能", type: :feature do
     save_and_open_page
 
     tds = page.all('td')
-    expect(tds[14]).to have_content 'test_task_04'
+    expect(tds[0]).to have_content 'test_task_04'
+    expect(tds[7]).to have_content 'test_task_02'
+    expect(tds[14]).to have_content 'test_task_01'
   end
 end
