@@ -4,8 +4,12 @@ class TasksController < ApplicationController
     if params[:sort_expired] == "true"
       @tasks = Task.all.order(deadline: "DESC")
     else  
-    # elsif params[:sort_expired] == "false"
-      @tasks = Task.all.order(created_at: "DESC")
+      #キーワードが入力されていれば、whereメソッドとLIKE検索（部分一致検索）を組み合わせて、必要な情報のみ取得する。
+      if params[:search]
+        @tasks = Task.where('content LIKE ?', "%#{params[:search]}%")
+      else
+        @tasks = Task.all
+      end
     end
   end
 
