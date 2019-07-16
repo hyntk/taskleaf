@@ -221,3 +221,10 @@ ja:
     task created: タスクを作成しました！
     task edited: タスクを編集しました！
     task deleted: タスクを削除しました！
+    sort by deadline: 終了期限でソートする
+    untouched: 未着手
+    working: 着手済
+    completed: 完了
+    select box: 選択してください
+    search: 検索
+    status: 内容
