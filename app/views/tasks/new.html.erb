@@ -21,7 +21,7 @@
 
   <div class="task_content">
     <%= form.label :status %>
-    <%= form.select :status, ['未着手', '着手中', '完了'], {include_blank: '選択ボックス'}, class: 'task' %>
+    <%= form.select :status, [t('view.untouched'), t('view.working'), t('view.completed')], {include_blank: ''}, class: 'task' %>
   </div>
 
   <div class="task_content">
