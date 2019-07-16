@@ -12,4 +12,7 @@ class Task < ApplicationRecord
   scope :get_by_status, ->(status) {
   where(status: status)
   }
+
+  # 優先順位をenumを使って運用
+  enum priority:{low: 0,mid:1,high:2}
 end

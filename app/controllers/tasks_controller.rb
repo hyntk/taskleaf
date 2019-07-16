@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
 
   def index
-    if params[:sort_expired] == "true"
+    if params[:sort_expired_deadline] == "true"
       @tasks = Task.all.order(deadline: "DESC")
+    elsif params[:sort_expired_priority] == "true"
+      @tasks = Task.all.order(priority: "DESC")
     else
       # パラメータとして内容を受け取っている場合は絞って検索する
       @tasks = Task.all
