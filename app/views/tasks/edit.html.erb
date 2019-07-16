@@ -21,7 +21,7 @@
 
   <div class="task_content">
     <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.select :status, [t('view.untouched'), t('view.working'), t('view.completed')], {include_blank: ''}, class: 'task' %>
   </div>
 
   <div class="task_content">
@@ -30,7 +30,7 @@
 
     <div class="task_content">
     <%= form.label :deadline %>
-    <%= form.date_select :deadline, {:discard_day => true} %>
+    <%= form.date_select :deadline%>
   </div>
   <%= form.submit %>
 <% end %>

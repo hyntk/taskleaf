@@ -10,7 +10,7 @@ FactoryBot.define do
 
   factory :second_task,class: Task do
     content { 'test_task_02' }
-    status { '未着手' }
+    status { '完了' }
     priority { '高' }
     deadline { "2019-07-10" }
   end
@@ -39,11 +39,10 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit new_task_path
 
     fill_in 'task_content', with: 'test_task_03'
-    fill_in 'task_status', with: '未着手'
+    select '未着手',from: '状態'
     fill_in 'task_priority', with: '高'
 
     click_on '登録する'
-
     expect(page).to have_content 'test_task_03'
     expect(page).to have_content '未着手'
     expect(page).to have_content '高'
@@ -53,9 +52,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_on '詳細',match: :first
     expect(page).to have_content 'タスク詳細'
-    expect(page).to have_content 'test_task_02'
+    expect(page).to have_content 'test_task_01'
     expect(page).to have_content '未着手'
-    expect(page).to have_content '高'
+    expect(page).to have_content '低'
     expect(page).to have_link '一覧'
   end
 
@@ -63,19 +62,19 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     visit tasks_path
     tds = page.all('td')
-    expect(tds[0]).to have_content 'test_task_02'
+    expect(tds[0]).to have_content 'test_task_01'
     expect(tds[1]).to have_content '未着手'
-    expect(tds[2]).to have_content '高'
-    expect(tds[7]).to have_content 'test_task_01'
-    expect(tds[8]).to have_content '未着手'
-    expect(tds[9]).to have_content '低'
+    expect(tds[2]).to have_content '低'
+    expect(tds[7]).to have_content 'test_task_02'
+    expect(tds[8]).to have_content '完了'
+    expect(tds[9]).to have_content '高'
   end
 
   scenario "期限付タスクが期限の降順に並んでいるかのテスト" do
     visit new_task_path
 
     fill_in 'task_content', with: 'test_task_04'
-    fill_in 'task_status', with: '未着手'
+    select '未着手',from: '状態'
     fill_in 'task_priority', with: '高'
     select('2019', from: 'task_deadline_1i')
     select('12', from: 'task_deadline_2i')
@@ -84,11 +83,33 @@ RSpec.feature "タスク管理機能", type: :feature do
     click_on '登録する'
 
     click_on '終了期限でソートする'
-    save_and_open_page
+    
 
     tds = page.all('td')
     expect(tds[0]).to have_content 'test_task_04'
     expect(tds[7]).to have_content 'test_task_02'
     expect(tds[14]).to have_content 'test_task_01'
   end
+
+  scenario "検索条件に合致した内容のタスクが並んでいるかのテスト" do
+    visit tasks_path
+    save_and_open_page
+
+    fill_in 'search', with: 'test_task_01'
+    click_on 'commit'
+    tds = page.all('td')
+    expect(tds[0]).to have_content 'test_task_01'
+    expect(page).to_not have_content 'test_task_02'
+  end
+
+  scenario "検索条件に合致した状態のタスクが並んでいるかのテスト" do
+    visit tasks_path
+    save_and_open_page
+
+    select '未着手',from: 'status'
+    click_on 'commit'
+    tds = page.all('td')
+    expect(tds[0]).to have_content 'test_task_01'
+    expect(page).to_not have_content 'test_task_02'
+  end  
 end

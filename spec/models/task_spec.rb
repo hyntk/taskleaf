@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+      # 各テストの前にTaskを作成
+      before do
+        @task = Task.create(
+          content: "SampleTask01",
+          status: "未着手",
+          priority: "高",
+          deadline: "2019-08-01"
+        )
+        @other_task = Task.create(
+          content: "SampleTask02",
+          status: "完了",
+          priority: "高",
+          deadline: "2019-08-15"
+        )
+      end
 
   it "contentが空ならバリデーションが通らない" do
     task = Task.new(content: '', status: '失敗テスト', priority: '失敗テスト')
@@ -18,4 +33,12 @@ RSpec.describe Task, type: :model do
     # ここに内容を記載する
     task = Task.new(content: '成功テスト', status: '', priority: '成功テスト')
   end
+
+  it "内容：Task01で検索したらTask01が返ってくる" do
+    expect(Task.all.get_by_content("Task01")).to include(@task)
+  end
+
+  it "ステータス：完了で検索したらTask02が返ってくる" do
+    expect(Task.all.get_by_status("完了")).to include(@other_task)
+  end  
 end
