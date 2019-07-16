@@ -3,12 +3,14 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired] == "true"
       @tasks = Task.all.order(deadline: "DESC")
-    else  
-      #キーワードが入力されていれば、whereメソッドとLIKE検索（部分一致検索）を組み合わせて、必要な情報のみ取得する。
-      if params[:search]
-        @tasks = Task.where('content LIKE ?', "%#{params[:search]}%")
-      else
-        @tasks = Task.all
+    else
+      # パラメータとして内容を受け取っている場合は絞って検索する
+      @tasks = Task.all
+      if params[:search].present?
+        @tasks = @tasks.get_by_content params[:search]
+      end
+      if params[:status].present?
+        @tasks = @tasks.get_by_status params[:status]
       end
     end
   end
