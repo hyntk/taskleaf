@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
-  def new
+  before_action :authenticate_user, only: [:index, :new]
 
+  def new
   end
 
   def create
@@ -19,4 +20,12 @@ class SessionsController < ApplicationController
     flash[:notice] = 'ログアウトしました'
     redirect_to new_session_path
   end
+
+  private
+
+  def authenticate_user
+    if logged_in?
+      redirect_to tasks_path
+    end
+  end  
 end
