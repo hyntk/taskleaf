@@ -26,7 +26,7 @@
 
   <div class="task_content">
     <%= form.label :priority %>
-    <%= form.text_field :priority %>
+    <%= form.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %>
 
     <div class="task_content">
     <%= form.label :deadline %>
