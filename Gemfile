@@ -50,6 +50,7 @@ group :development, :test do
   gem 'launchy'
   gem 'hirb'
   gem 'hirb-unicode'
+  gem 'faker'
 end
 
 group :development do
