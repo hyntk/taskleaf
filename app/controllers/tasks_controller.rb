@@ -7,7 +7,7 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(priority: "DESC")
     else
       # パラメータとして内容を受け取っている場合は絞って検索する
-      @tasks = Task.all
+      @tasks = Task.page(params[:page])
       if params[:search].present?
         @tasks = @tasks.get_by_content params[:search]
       end

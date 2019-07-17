@@ -36,3 +36,6 @@
 <%= link_to t('view.new'), new_task_path %>
 <%= link_to t('view.sort by deadline'), tasks_path(sort_expired_deadline: "true") %>
 <%= link_to t('view.sort by priority'), tasks_path(sort_expired_priority: "true") %>
+
+
+<%= paginate @tasks %>

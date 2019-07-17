@@ -15,4 +15,7 @@ class Task < ApplicationRecord
 
   # 優先順位をenumを使って運用
   enum priority:{low: 0,mid:1,high:2}
+
+  # ページネーションの設定
+  paginates_per 10
 end
