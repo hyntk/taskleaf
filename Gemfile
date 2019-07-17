@@ -50,6 +50,7 @@ group :development, :test do
   gem 'launchy'
   gem 'hirb'
   gem 'hirb-unicode'
+  gem 'faker'
 end
 
 group :development do
@@ -74,3 +75,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'ransack'
 gem 'enum_help'
+gem 'kaminari'

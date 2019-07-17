@@ -233,4 +233,9 @@ ja:
       priority:
         low: 低
         mid: 中
-        high: 高    
+        high: 高
+  views:
+    pagination:
+      previous: "« 前ページ"
+      next: "次ページ »"
+      truncate: "..."      

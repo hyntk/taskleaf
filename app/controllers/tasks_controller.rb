@@ -3,11 +3,15 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired_deadline] == "true"
       @tasks = Task.all.order(deadline: "DESC")
+      #kaminari対応
+      @tasks = @tasks.page(params[:page])
     elsif params[:sort_expired_priority] == "true"
       @tasks = Task.all.order(priority: "DESC")
+      #kaminari対応
+      @tasks = @tasks.page(params[:page])
     else
       # パラメータとして内容を受け取っている場合は絞って検索する
-      @tasks = Task.all
+      @tasks = Task.page(params[:page])
       if params[:search].present?
         @tasks = @tasks.get_by_content params[:search]
       end
