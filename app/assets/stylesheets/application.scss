@@ -13,3 +13,38 @@
  *= require_tree .
  *= require_self
  */
+
+  @import "bootstrap";
+
+  .header {
+    background-color: rgb(70, 130, 180);
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  .footer{
+    background-color: rgb(105, 105, 105);
+    height: 100px;
+    width: 100%;
+  }
+  
+  .footer p {
+    font-size: 1rem;
+    color: #fff;
+    text-align: center; /* 文字の中央揃え */
+  }
+
+  body,
+  #wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  }
+
+  footer {
+    margin-top: auto;
+  }
