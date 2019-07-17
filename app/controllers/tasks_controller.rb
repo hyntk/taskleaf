@@ -1,17 +1,19 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user, only: [:index, :new]
 
   def index
     if params[:sort_expired_deadline] == "true"
-      @tasks = Task.all.order(deadline: "DESC")
+      @tasks = current_user.tasks.order(deadline: "DESC")
       #kaminari対応
       @tasks = @tasks.page(params[:page])
     elsif params[:sort_expired_priority] == "true"
-      @tasks = Task.all.order(priority: "DESC")
+      @tasks = current_user.tasks.order(priority: "DESC")
       #kaminari対応
       @tasks = @tasks.page(params[:page])
     else
       # パラメータとして内容を受け取っている場合は絞って検索する
-      @tasks = Task.page(params[:page])
+      @tasks = current_user.tasks
+      @tasks = @tasks.page(params[:page])
       if params[:search].present?
         @tasks = @tasks.get_by_content params[:search]
       end
@@ -26,7 +28,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task=Task.new(task_params)
+    @task=current_user.tasks.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: t('view.task created')
     else
@@ -61,5 +63,11 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:content,:status,:priority,:deadline)
+  end
+
+  def authenticate_user
+    unless logged_in?
+      redirect_to sessions_new_path
+    end
   end
 end

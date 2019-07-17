@@ -1,5 +1,5 @@
 <h1><%= t('view.Task list') %></h1>
-<p><%= notice %></p>
+<%# <p><%= notice %></p> %>
 
 <p><%=t('view.search')%></p>
 <%= form_with url:tasks_path,method: :get,local: true do |f| %>
@@ -17,6 +17,7 @@
     <th><%= t('view.status') %></th>
     <th><%= t('view.priority') %></th>
     <th><%= t('view.deadline') %></th>
+    <th>投稿ユーザー</th>
 
   </tr>
 
@@ -26,6 +27,7 @@
     <td><%= task.status %></td>
     <td><%= task.priority_i18n %></td>
     <td><%= task.deadline %></td>
+    <td><%= task.user.name %></td>
     <td><%= link_to t('view.show'), task_path(task.id) %></td>
     <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
     <td><%= link_to t('view.delete'), task_path(task.id), method: :delete %></td>

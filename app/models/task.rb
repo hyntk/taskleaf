@@ -18,4 +18,6 @@ class Task < ApplicationRecord
 
   # ページネーションの設定
   paginates_per 10
+
+  belongs_to :user
 end
