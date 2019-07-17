@@ -4,14 +4,14 @@ FactoryBot.define do
   factory :task do
     content { 'test_task_01' }
     status { '未着手' }
-    priority { '低' }
+    priority { 'low' }
     deadline { "2019-07-07" }
   end
 
   factory :second_task,class: Task do
     content { 'test_task_02' }
     status { '完了' }
-    priority { '高' }
+    priority { 'high' }
     deadline { "2019-07-10" }
   end
 end
@@ -40,7 +40,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     fill_in 'task_content', with: 'test_task_03'
     select '未着手',from: '状態'
-    fill_in 'task_priority', with: '高'
+    select '高',from: '優先順位'
 
     click_on '登録する'
     expect(page).to have_content 'test_task_03'
@@ -51,6 +51,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスク詳細のテスト" do
     visit tasks_path
     click_on '詳細',match: :first
+
     expect(page).to have_content 'タスク詳細'
     expect(page).to have_content 'test_task_01'
     expect(page).to have_content '未着手'
@@ -75,7 +76,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     fill_in 'task_content', with: 'test_task_04'
     select '未着手',from: '状態'
-    fill_in 'task_priority', with: '高'
+    select '高',from: '優先順位'
     select('2019', from: 'task_deadline_1i')
     select('12', from: 'task_deadline_2i')
     select('31', from: 'task_deadline_3i')
@@ -93,7 +94,6 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "検索条件に合致した内容のタスクが並んでいるかのテスト" do
     visit tasks_path
-    save_and_open_page
 
     fill_in 'search', with: 'test_task_01'
     click_on 'commit'
@@ -102,14 +102,33 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(page).to_not have_content 'test_task_02'
   end
 
-  scenario "検索条件に合致した状態のタスクが並んでいるかのテスト" do
+  scenario "内容の検索条件に合致した状態のタスクが並んでいるかのテスト" do
     visit tasks_path
-    save_and_open_page
 
     select '未着手',from: 'status'
     click_on 'commit'
     tds = page.all('td')
     expect(tds[0]).to have_content 'test_task_01'
     expect(page).to_not have_content 'test_task_02'
-  end  
+  end
+
+  scenario "優先順位の降順にタスクが並んでいるかのテスト" do
+    visit new_task_path
+
+    fill_in 'task_content', with: 'test_task_04'
+    select '未着手',from: '状態'
+    select '中',from: '優先順位'
+    select('2019', from: 'task_deadline_1i')
+    select('12', from: 'task_deadline_2i')
+    select('31', from: 'task_deadline_3i')
+
+    click_on '登録する'
+
+    click_on '優先順位でソートする'  
+    save_and_open_page  
+    tds = page.all('td')
+    expect(tds[0]).to have_content 'test_task_02'
+    expect(tds[7]).to have_content 'test_task_04'
+    expect(tds[14]).to have_content 'test_task_01'
+  end
 end
