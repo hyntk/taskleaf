@@ -70,7 +70,6 @@ RSpec.feature "ユーザー登録機能", type: :feature do
     expect(page).to_not have_content 'Sign up'
 
     visit new_session_path
-    save_and_open_page
     expect(page).to_not have_content 'Sign up'
   end
 end
