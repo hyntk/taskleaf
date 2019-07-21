@@ -5,6 +5,12 @@ class Admin::UsersController < ApplicationController
     @users = User.all.order("created_at DESC")
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_users_path, notice:t('view.task deleted')
+  end
+
   private
 
   def authenticate_admin_user
