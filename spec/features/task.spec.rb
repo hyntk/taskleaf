@@ -76,7 +76,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     # click_link '詳細',match: :first
     first(:link, '詳細').click
-
     expect(page).to have_content 'タスク詳細'
     expect(page).to have_content 'test_task_01'
     expect(page).to have_content '未着手'
