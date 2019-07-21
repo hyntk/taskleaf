@@ -43,7 +43,6 @@ RSpec.feature "タスク管理機能", type: :feature do
       fill_in 'session_email', with: 'user01@hoge.com'
       fill_in 'session_password', with: '123456'
       click_on 'commit'
-      click_on '一覧'
     end  
 
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
@@ -52,10 +51,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク一覧のテスト" do
-    visit tasks_path
-
     log_in
-
+    click_on '一覧'
     expect(page).to have_content 'test_task_01'
     expect(page).to have_content 'test_task_02'
   end
@@ -77,9 +74,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスク詳細のテスト" do
     log_in
     visit tasks_path
-    
-    click_on '詳細',match: :first
-
+    # click_link '詳細',match: :first
+    first(:link, '詳細').click
     expect(page).to have_content 'タスク詳細'
     expect(page).to have_content 'test_task_01'
     expect(page).to have_content '未着手'
@@ -158,7 +154,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     click_on '登録する'
 
     click_on '優先順位でソートする'  
-    save_and_open_page  
     tds = page.all('td')
     expect(tds[0]).to have_content 'test_task_02'
     expect(tds[8]).to have_content 'test_task_04'
