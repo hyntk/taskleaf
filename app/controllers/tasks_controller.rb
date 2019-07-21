@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :authenticate_user, only: [:index, :new]
-  before_action :ensure_correct_user, only: [:edit, :show]
+  # before_action :ensure_correct_user, only: [:edit、:show]
 
   def index
     if params[:sort_expired_deadline] == "true"
