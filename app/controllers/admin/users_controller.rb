@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admin_users_path, notice: t('view.task edited')
     else
-      render 'admin_edit'
+      render edit_admin_user_path
     end
   end
 
