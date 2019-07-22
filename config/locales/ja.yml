@@ -228,6 +228,12 @@ ja:
     completed: 完了
     select box: 選択してください
     search: 検索
+    user edited: ユーザを編集しました！
+    user deleted: ユーザを削除しました！
+    user_name: ユーザ名
+    user_mailadress: メールアドレス
+    user_created_task_amount: ユーザーが作成したタスク数
+    create_new_user: 新しくユーザを作成する
   enums:
     task:
       priority:

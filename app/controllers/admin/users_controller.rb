@@ -25,7 +25,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to admin_users_path, notice: t('view.task edited')
+      redirect_to admin_users_path, notice: t('view.user edited')
     else
       render edit_admin_user_path
     end
@@ -40,7 +40,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to admin_users_path, notice:t('view.task deleted')
+    redirect_to admin_users_path, notice:t('view.user deleted')
   end
 
   private
