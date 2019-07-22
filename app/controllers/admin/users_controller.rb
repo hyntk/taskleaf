@@ -33,8 +33,8 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @tasks = current_user.tasks
-    @tasks = @tasks.page(params[:page])
+    @tasks = Task.where(user_id: @user.id)
+    # @tasks = @tasks.page(params[:page])
   end
 
   def destroy
