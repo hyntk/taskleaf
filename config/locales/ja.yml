@@ -234,6 +234,7 @@ ja:
     user_mailadress: メールアドレス
     user_created_task_amount: ユーザーが作成したタスク数
     create_new_user: 新しくユーザを作成する
+    administrator authority: 管理者権限
   enums:
     task:
       priority:
