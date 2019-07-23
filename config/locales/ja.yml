@@ -235,6 +235,8 @@ ja:
     user_created_task_amount: ユーザーが作成したタスク数
     create_new_user: 新しくユーザを作成する
     administrator authority: 管理者権限
+    admin_setting: 管理画面
+    you do not have the authority: 管理者権限がないため、管理画面にアクセスできません。管理者でログインしてください。
   enums:
     task:
       priority:

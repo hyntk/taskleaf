@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  # before_action :authenticate_admin_user, only: [:index]
+  before_action :authenticate_admin_user, only: [:index]
 
   def index
     @users = User.all.order("created_at DESC")
@@ -52,7 +52,8 @@ class Admin::UsersController < ApplicationController
 
   def authenticate_admin_user
     unless current_user.admin?
-      redirect_to sessions_new_path
+      redirect_to tasks_path
+      flash[:notice] = t('view.you do not have the authority')
     end
   end
 end
