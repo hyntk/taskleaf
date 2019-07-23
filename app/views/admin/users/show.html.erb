@@ -1,0 +1,14 @@
+<h1><%= @user.name %>のページ</h1>
+
+<p>メールアドレス: <%= @user.email %></p>
+
+<p><span>作成したタスクのサマリ: </span>
+<p>
+<% @tasks.each do |task| %>
+<%= task.content %>
+</p>
+<% end %>
+
+<p><span>ユーザが作成したタスクの数: </span>
+
+<%= @tasks.count %>

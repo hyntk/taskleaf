@@ -6,4 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :show]
   resources :sessions, only: [:new, :create, :destroy]
+
+  # 管理画面のルーティング
+  namespace :admin do
+    resources :users
+  end
 end
