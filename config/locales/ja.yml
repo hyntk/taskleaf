@@ -237,6 +237,7 @@ ja:
     administrator authority: 管理者権限
     admin_setting: 管理画面
     you do not have the authority: 管理者権限がないため、管理画面にアクセスできません。管理者でログインしてください。
+    delete failed: 削除に失敗しました
   enums:
     task:
       priority:

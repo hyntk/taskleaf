@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :authenticate_admin_user, only: [:index]
+  # before_action :authenticate_admin_user, only: [:index]
 
   def index
     @users = User.all.order("created_at DESC")
@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admin_users_path, notice: t('view.user edited')
     else
-      render edit_admin_user_path
+      render admin_users_path, notice: t('編集に失敗しました')
     end
   end
 
@@ -39,8 +39,11 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to admin_users_path, notice:t('view.user deleted')
+    if @user.destroy
+      redirect_to admin_users_path, notice:t('view.user deleted')
+    else
+      redirect_to admin_users_path, notice:t('view.delete failed')
+    end
   end
 
   private
