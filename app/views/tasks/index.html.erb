@@ -6,6 +6,9 @@
 
   <%= f.label t('view.status') %>
   <%= f.select :status, [[t('view.untouched'), t('view.untouched')], [t('view.working'), t('view.working')], [t('view.completed'), t('view.completed')]],{include_blank: t('view.select box')} %>
+  <%# ラベルで検索 %>
+  <%= f.label t('view.status') %>
+  <%= f.select("lavel_id", Lavel.pluck(:name, :id), { include_blank: t('view.select box') }) %>
 
   <%= f.submit 'Search'%> <%= link_to 'Clear', tasks_path %>
 <% end %>

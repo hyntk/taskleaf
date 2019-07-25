@@ -21,6 +21,9 @@ class TasksController < ApplicationController
       if params[:status].present?
         @tasks = @tasks.get_by_status params[:status]
       end
+      if params[:lavel_id].present?
+        @tasks = @tasks.joins(:lavels).where(lavels: { id: params[:lavel_id] })
+      end
     end
   end
 
