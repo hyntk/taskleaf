@@ -35,6 +35,8 @@
     <%= form.date_select :deadline %>
   </div>
 
+  <%= form.collection_check_boxes(:lavel_ids, Lavel.all, :id, :name) %>
+
   <%= form.submit %>
 <% end %>
 

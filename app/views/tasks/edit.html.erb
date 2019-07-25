@@ -31,6 +31,9 @@
     <div class="task_content">
     <%= form.label :deadline %>
     <%= form.date_select :deadline%>
+
+      <%= form.collection_check_boxes(:lavel_ids, Lavel.all, :id, :name) %>
+      
   </div>
   <%= form.submit %>
 <% end %>

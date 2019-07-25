@@ -20,4 +20,8 @@ class Task < ApplicationRecord
   paginates_per 10
 
   belongs_to :user
+
+  # ラベル用の多対多の実装
+  has_many :lavellings, dependent: :destroy
+  has_many :lavels, through: :lavellings
 end
