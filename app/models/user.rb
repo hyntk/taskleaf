@@ -10,7 +10,7 @@ class User < ApplicationRecord
   # before_destroyコールバックは、dependent: :destroyよりも前に配置する
   # 理由は、そのレコードがdependent: :destroyによって削除されるよりも前にbefore_destroyコールバックが実行されるようにするため
   has_many :tasks,dependent: :destroy
-
+  has_many :lavellings, dependent: :destroy
     private
 
   def admin_at_least_one

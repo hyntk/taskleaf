@@ -1,0 +1,2 @@
+class Lavel < ApplicationRecord
+end
