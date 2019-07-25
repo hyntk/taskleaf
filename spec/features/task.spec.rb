@@ -43,7 +43,17 @@ RSpec.feature "タスク管理機能", type: :feature do
       fill_in 'session_email', with: 'user01@hoge.com'
       fill_in 'session_password', with: '123456'
       click_on 'commit'
-    end  
+    end
+
+    def make_label
+      visit new_lavel_path
+      fill_in 'lavel_name',with: 'test_label_01'
+      click_on 'commit'
+      fill_in 'lavel_name',with: 'test_label_02'
+      click_on 'commit'
+      fill_in 'lavel_name',with: 'test_label_03'
+      click_on 'commit'
+    end
 
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
     # FactoryBot.create(:task)
@@ -58,17 +68,25 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク作成のテスト" do
+    make_label
     log_in
     visit new_task_path
 
     fill_in 'task_content', with: 'test_task_03'
     select '未着手',from: '状態'
     select '高',from: '優先順位'
+    check 'test_label_01'
+    check 'test_label_02'
+
 
     click_on '登録する'
     expect(page).to have_content 'test_task_03'
     expect(page).to have_content '未着手'
     expect(page).to have_content '高'
+    all(:link, '詳細').last.click
+    
+    expect(page).to have_content 'test_label_01'
+    expect(page).to have_content 'test_label_02'
   end
 
   scenario "タスク詳細のテスト" do
