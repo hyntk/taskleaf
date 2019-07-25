@@ -17,7 +17,6 @@
     <th><%= t('view.priority') %></th>
     <th><%= t('view.deadline') %></th>
     <th>投稿ユーザー</th>
-    <th>ラベル</th>
 
   </tr>
 
@@ -28,12 +27,6 @@
     <td><%= task.priority_i18n %></td>
     <td><%= task.deadline %></td>
     <td><%= task.user.name %></td>
-
-    <td>
-      <% task.lavels.each do |lavel| %>
-        <%= lavel.name %>
-      <% end %>
-    </td>
 
     <td><%= link_to t('view.show'), task_path(task.id) %></td>
     <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>

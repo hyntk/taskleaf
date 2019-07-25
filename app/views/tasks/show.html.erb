@@ -3,5 +3,10 @@
 <p><%= t('view.status') %>: <%= @task.status %></p>
 <p><%= t('view.priority') %>: <%= @task.priority_i18n %></p>
 <p><%= t('view.deadline') %>: <%= @task.deadline %></p>
+<p>ラベル：
+    <% @lavel.each do |lavel| %>
+      <%= lavel.name %>
+    <% end %>
+</p>
 
 <%= link_to t('view.index'), tasks_path %>
