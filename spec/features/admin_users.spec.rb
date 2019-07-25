@@ -24,6 +24,14 @@ FactoryBot.define do
     email { 'user01@hoge.com' }
     password { '123456' }
     password_confirmation { '123456' }
+    admin { 'true' }
+  end
+
+  factory :second_user,class: User do
+    name { 'user_03' }
+    email { 'fuga@fuga.com' }
+    password { '123456' }
+    password_confirmation { '123456' }
   end
 end
 
@@ -35,6 +43,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   
   background do
     @user = FactoryBot.create(:user)
+    @second_user = FactoryBot.create(:second_user)
     @task01 = FactoryBot.create(:task, user_id: @user.id, content: "test_task_01",status:"未着手",priority:"low",deadline:"2019-07-07")
     @task02 = FactoryBot.create(:task, user_id: @user.id, content: "test_task_02",status:"完了",priority:"high",deadline:"2019-07-10")
 
@@ -69,7 +78,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "管理画面でユーザー詳細を確認するテスト" do
     log_in
     click_on '管理画面'
-    first(:link, '詳細').click
+    all(:link, '詳細').last.click
     expect(page).to have_content 'user_01のページ'
     expect(page).to have_content 'user01@hoge.com'
     expect(page).to have_content 'test_task_01'
@@ -80,7 +89,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "管理画面でユーザーを更新のテスト" do
     log_in
     click_on '管理画面'
-    first(:link, '編集').click
+    all(:link, '編集').last.click
     expect(page).to have_content 'ユーザーを編集する'
     fill_in 'user_name', with: 'user_01v2'
     fill_in 'user_email', with: 'user01v2@hoge.com'
@@ -94,9 +103,18 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "管理画面でユーザーを削除するテスト" do
     log_in
     click_on '管理画面'
-    first(:link, '削除').click
-    expect(page).to_not have_content 'user_01'
-    expect(page).to_not have_content 'user01@hoge.com'
     save_and_open_page
+    first(:link, '削除').click
+    expect(page).to_not have_content 'user_03'
+    expect(page).to_not have_content 'fuga@fuga.com'
+  end
+
+  scenario "管理画面で唯一の管理ユーザーが削除できないテスト" do
+    log_in
+    click_on '管理画面'
+    save_and_open_page
+    first(:link, '削除').click
+    expect(page).to have_content 'user_01'
+    expect(page).to have_content 'user01@hoge.com'
   end
 end
