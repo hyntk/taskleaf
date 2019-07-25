@@ -84,3 +84,5 @@ gem 'bootstrap'
 gem 'jquery-rails'
 
 gem 'bcrypt', '3.1.11'
+
+gem 'faker'
