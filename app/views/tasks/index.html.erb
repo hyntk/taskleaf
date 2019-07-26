@@ -1,20 +1,18 @@
 <h1><%= t('view.Task list') %></h1>
+    
+    <%= form_with url:tasks_path,method: :get,local: true do |f| %>
 
-<table>
-  <tr>
-    <th><%=t('view.search')%></th>
-    <td><%= form_with url:tasks_path,method: :get,local: true do |f| %></td>
-    <td><%= f.text_field :search %></td>
+    <%=t('view.search')%>
+    <%= f.text_field :search %>
 
-    <th><%= f.label t('view.status') %></th>
-    <td><%= f.select :status, [[t('view.untouched'), t('view.untouched')], [t('view.working'), t('view.working')], [t('view.completed'), t('view.completed')]],{include_blank: t('view.select box')} %></td>
+    <%= f.label t('view.status') %>
+    <%= f.select :status, [[t('view.untouched'), t('view.untouched')], [t('view.working'), t('view.working')], [t('view.completed'), t('view.completed')]],{include_blank: t('view.select box')} %>
 
-    <th><%= f.label t('view.label') %></th>
-    <td><%= f.select("lavel_id", Lavel.pluck(:name, :id), { include_blank: t('view.select box') }) %></td>
+    <%= f.label t('view.label') %>
+    <%= f.select("lavel_id", Lavel.pluck(:name, :id), { include_blank: t('view.select box') }) %>
 
-    <td><%= f.submit 'Search'%> <%= link_to 'Clear', tasks_path %></td>
-  <% end %>
-</table>
+    <%= f.submit 'Search'%> <%= link_to 'Clear', tasks_path %>
+    <% end %>
 
 <table>
   <tr>
