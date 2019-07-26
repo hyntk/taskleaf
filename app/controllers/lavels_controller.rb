@@ -12,6 +12,12 @@ class LavelsController < ApplicationController
     redirect_to new_lavel_path
   end
 
+  def destroy
+    @lavel = Lavel.find(params[:id])
+    @lavel.destroy
+    redirect_to lavels_path
+  end
+
   private
 
   def lavel_params
