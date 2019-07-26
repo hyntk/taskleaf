@@ -21,6 +21,9 @@ class TasksController < ApplicationController
       if params[:status].present?
         @tasks = @tasks.get_by_status params[:status]
       end
+      if params[:lavel_id].present?
+        @tasks = @tasks.joins(:lavels).where(lavels: { id: params[:lavel_id] })
+      end
     end
   end
 
@@ -39,6 +42,7 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @lavel = @task.lavels
   end
 
   def edit
@@ -63,7 +67,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:content,:status,:priority,:deadline)
+    params.require(:task).permit(:content,:status,:priority,:deadline,{ lavel_ids: [] })
   end
 
   def authenticate_user

@@ -1,9 +1,11 @@
 class Task < ApplicationRecord
-  validates :content, presence: true
-  validates :status, presence: true
-  validates :priority, presence: true
+  belongs_to :user
 
-  # 内容による絞り込み
+  # ラベル用の多対多の実装
+  has_many :lavellings, dependent: :destroy
+  has_many :lavels, through: :lavellings
+
+    # 内容による絞り込み
   # キーワードが入力されていれば、whereメソッドとLIKE検索（部分一致検索）を組み合わせて、必要な情報のみ取得する。
   scope :get_by_content, ->(content) {
     where("content like ?", "%#{content}%")
@@ -19,5 +21,8 @@ class Task < ApplicationRecord
   # ページネーションの設定
   paginates_per 10
 
-  belongs_to :user
+  validates :content, presence: true
+  validates :status, presence: true
+  validates :priority, presence: true
+
 end

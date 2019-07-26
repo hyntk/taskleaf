@@ -211,6 +211,7 @@ ja:
     content: "内容"
     status: "状態"
     priority: "優先順位"
+    label: "ラベル"
     deadline: "期限"
     edit: "編集"  
     new: "新規"
@@ -227,7 +228,7 @@ ja:
     working: 着手済
     completed: 完了
     select box: 選択してください
-    search: 検索
+    search: 内容で検索
     user edited: ユーザを編集しました！
     user deleted: ユーザを削除しました！
     user_name: ユーザ名

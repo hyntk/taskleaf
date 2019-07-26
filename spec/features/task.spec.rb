@@ -43,6 +43,28 @@ RSpec.feature "タスク管理機能", type: :feature do
       fill_in 'session_email', with: 'user01@hoge.com'
       fill_in 'session_password', with: '123456'
       click_on 'commit'
+    end
+
+    def make_label
+      visit new_lavel_path
+      fill_in 'lavel_name',with: 'test_label_01'
+      click_on 'commit'
+      fill_in 'lavel_name',with: 'test_label_02'
+      click_on 'commit'
+      fill_in 'lavel_name',with: 'test_label_03'
+      click_on 'commit'
+    end
+
+    def make_labeled_task
+      visit new_task_path
+
+      fill_in 'task_content', with: 'test_task_03'
+      select '未着手',from: '状態'
+      select '高',from: '優先順位'
+      check 'test_label_01'
+      check 'test_label_02'
+
+      click_on '登録する'
     end  
 
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
@@ -58,17 +80,17 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク作成のテスト" do
+    make_label
     log_in
-    visit new_task_path
+    make_labeled_task
 
-    fill_in 'task_content', with: 'test_task_03'
-    select '未着手',from: '状態'
-    select '高',from: '優先順位'
-
-    click_on '登録する'
     expect(page).to have_content 'test_task_03'
     expect(page).to have_content '未着手'
     expect(page).to have_content '高'
+    all(:link, '詳細').last.click
+    
+    expect(page).to have_content 'test_label_01'
+    expect(page).to have_content 'test_label_02'
   end
 
   scenario "タスク詳細のテスト" do
@@ -86,7 +108,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
     log_in
     visit tasks_path
-    
     tds = page.all('td')
     expect(tds[0]).to have_content 'test_task_01'
     expect(tds[1]).to have_content '未着手'
@@ -110,34 +131,48 @@ RSpec.feature "タスク管理機能", type: :feature do
     click_on '登録する'
 
     click_on '終了期限でソートする'
-    
-
     tds = page.all('td')
     expect(tds[0]).to have_content 'test_task_04'
     expect(tds[8]).to have_content 'test_task_02'
     expect(tds[16]).to have_content 'test_task_01'
   end
 
-  scenario "検索条件に合致した内容のタスクが並んでいるかのテスト" do
+  scenario "内容の検索条件に合致したタスクが並んでいるかのテスト" do
+    make_label
     log_in
     visit tasks_path
+    make_labeled_task
 
     fill_in 'search', with: 'test_task_01'
     click_on 'commit'
     tds = page.all('td')
-    expect(tds[0]).to have_content 'test_task_01'
+    expect(page).to have_content 'test_task_01'
     expect(page).to_not have_content 'test_task_02'
   end
 
-  scenario "内容の検索条件に合致した状態のタスクが並んでいるかのテスト" do
+  scenario "状態の検索条件に合致した状態のタスクが並んでいるかのテスト" do
+    make_label
     log_in
     visit tasks_path
+    make_labeled_task
 
     select '未着手',from: 'status'
     click_on 'commit'
     tds = page.all('td')
-    expect(tds[0]).to have_content 'test_task_01'
+    expect(page).to have_content 'test_task_01'
     expect(page).to_not have_content 'test_task_02'
+  end
+
+  scenario "ラベルの検索条件に合致したタスクが並んでいるかのテスト" do
+    make_label
+    log_in
+    make_labeled_task
+
+    select 'test_label_01',from: 'lavel_id'
+    click_on 'commit'
+    expect(page).to have_content 'test_task_03'
+    expect(page).to_not have_content 'test_task_02'
+    expect(page).to_not have_content 'test_task_01'
   end
 
   scenario "優先順位の降順にタスクが並んでいるかのテスト" do

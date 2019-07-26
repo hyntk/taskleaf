@@ -1,0 +1,16 @@
+<h1>ラベル一覧</h1>
+
+<table>
+  <tr>
+    <th>ラベル名</th>
+  </tr>
+
+<% @lavels.each do |lavel| %>
+  <tr>
+    <td><%= lavel.name %></td>
+    <td><%= link_to t('view.delete'), lavel_path(lavel.id), method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to t('view.new'), new_lavel_path %>

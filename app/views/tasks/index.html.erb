@@ -1,14 +1,18 @@
 <h1><%= t('view.Task list') %></h1>
+    
+    <%= form_with url:tasks_path,method: :get,local: true do |f| %>
 
-<p><%=t('view.search')%></p>
-<%= form_with url:tasks_path,method: :get,local: true do |f| %>
-  <%= f.text_field :search %>
+    <%=t('view.search')%>
+    <%= f.text_field :search %>
 
-  <%= f.label t('view.status') %>
-  <%= f.select :status, [[t('view.untouched'), t('view.untouched')], [t('view.working'), t('view.working')], [t('view.completed'), t('view.completed')]],{include_blank: t('view.select box')} %>
+    <%= f.label t('view.status') %>
+    <%= f.select :status, [[t('view.untouched'), t('view.untouched')], [t('view.working'), t('view.working')], [t('view.completed'), t('view.completed')]],{include_blank: t('view.select box')} %>
 
-  <%= f.submit 'Search'%> <%= link_to 'Clear', tasks_path %>
-<% end %>
+    <%= f.label t('view.label') %>
+    <%= f.select("lavel_id", Lavel.pluck(:name, :id), { include_blank: t('view.select box') }) %>
+
+    <%= f.submit 'Search'%> <%= link_to 'Clear', tasks_path %>
+    <% end %>
 
 <table>
   <tr>
@@ -27,6 +31,7 @@
     <td><%= task.priority_i18n %></td>
     <td><%= task.deadline %></td>
     <td><%= task.user.name %></td>
+
     <td><%= link_to t('view.show'), task_path(task.id) %></td>
     <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
     <td><%= link_to t('view.delete'), task_path(task.id), method: :delete %></td>

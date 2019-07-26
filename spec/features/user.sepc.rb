@@ -9,7 +9,7 @@ FactoryBot.define do
   end
 
   factory :second_user,class: User do
-    name { 'test_task_02' }
+    name { 'user_02' }
     email { 'fuga@fuga.com' }
     password { '123456' }
     password_confirmation { '123456' }
